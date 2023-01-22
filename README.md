@@ -11,14 +11,14 @@
 ## Sources Index
 ### Sorting
 - [x] [Bubble sort](./sorting/bubble_sort.py)
-- [x] [selection sort](./sorting/selection_sort.py)
-- [x] [merge sort](./sorting/merge_sort.py)
-- [x] [quick sort](./sorting/quick_sort.py)
+- [x] [Selection sort](./sorting/selection_sort.py)
+- [x] [Merge sort](./sorting/merge_sort.py)
+- [x] [Quick sort](./sorting/quick_sort.py)
 ### Graphs
 - [x] [Simple single source shortest path algorithm](./graphs/sssp_dag.py)
 - [x] [Dijkstra's algorithm lazy](./graphs/dijkstra_lazy.py)
 - [x] [Dijkstra's algorithm eager](./graphs/dijkstra_eager.py)
-- [x] [Eulerian algorithm notes](./graphs/eulerian_algorithms.py)
+- [x] [Eulerian algorithms notes](./graphs/eulerian_algorithms.py)
 - [x] [Find Eulerian path](./graphs/find_eulerian_path.py)
 - [x] [Strongly connected components Tarjan's algorithm](./graphs/tarjans_scc.py)
 ### Dynamic programming demonstrations
