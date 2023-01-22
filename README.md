@@ -46,7 +46,7 @@
 - [x] Best Sum 
   - [Memoization](./dynamic_programming/sum/best_sum.py)
   - [Tabulation](./dynamic_programming/sum/best_sum_tab.py)
-### Experiments and samples
+### Experiments and research
 - [x] [knowledge base](experiments_and_research/knowledge_base_test.py)
 - [ ] interpreter
 ### Utils
