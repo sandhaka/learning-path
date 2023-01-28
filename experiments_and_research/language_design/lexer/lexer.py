@@ -4,7 +4,7 @@ Lexical analysis is the process of converting a sequence of characters into a se
 Tokens are an accessibly small unit of meaning.
 """
 import string
-from .token import Token, TokenType
+from .token_cls import Token, TokenType
 
 
 class Lexer:
@@ -49,7 +49,8 @@ class Lexer:
     def read_char(self):
         if self.read_offset >= len(self.input):
             self.char = None
-        self.char = self.input[self.read_offset]
+        else:
+            self.char = self.input[self.read_offset]
         self.offset = self.read_offset
         self.read_offset += 1
 
