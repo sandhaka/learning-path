@@ -3,23 +3,35 @@ from enum import Enum
 
 
 class TokenType(Enum):
-    ILLEGAL = "ILLEGAL"
-    EOF = "EOF"
-    # Identifiers + literals
-    IDENT = "IDENT"  # add, foobar, x, y, ...
-    INT = "INT"  # 1343456
-    # Operators
-    ASSIGN = "="
-    PLUS = "+"
-    COMMA = ","
-    SEMICOLON = ";"
-    LPAREN = "("
-    RPAREN = ")"
-    LBRACE = "{"
-    RBRACE = "}"
-    # Keywords
-    FUNCTION = "FUNCTION"
-    LET = "LET"
+    ILLEGAL = "ILLEGAL",
+    EOF = "EOF",
+    IDENT = "IDENT",
+    INT = "INT",
+    ASSIGN = "=",
+    PLUS = "+",
+    MINUS = "-",
+    BANG = "!",
+    ASTERISK = "*",
+    SLASH = "/",
+    LESS_THAN = "<",
+    GREATER_THAN = ">",
+    COMMA = ",",
+    SEMICOLON = ";",
+    LPAREN = "(",
+    RPAREN = ")",
+    LBRACE = "{",
+    RBRACE = "}",
+    LBRACKET = "[",
+    RBRACKET = "]",
+    FUNCTION = "FUNCTION",
+    LET = "LET",
+    TRUE = "TRUE",
+    FALSE = "FALSE",
+    IF = "IF",
+    ELSE = "ELSE",
+    RETURN = "RETURN",
+    EQUAL = "==",
+    NOT_EQUAL = "!="
 
 
 class Token:

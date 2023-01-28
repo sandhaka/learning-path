@@ -14,10 +14,33 @@ simple_expr_inputs = [
     # Multi lines
     """let f = 89;
     let g =7""",
+    "(4 - 6) * 7",
+    # A more complex expression
+    """
+      let five = 5;
+      let ten = 10;
+
+      let add = fn(x, y) {
+        x + y;
+      };
+
+      let result = add(five, ten);
+      !-/*5;
+      5 < 10 > 5;
+
+      if (5 < 10) {
+        return true;
+      } else {
+        return false;
+      }
+
+      10 == 10;
+      10 != 9;
+    """,
 ]
 
 
-def test_lexer_with_simple_expressions():
+def test_lexer_demo():
     for input_test in simple_expr_inputs:
         print(f"{input_test}:")
         lexer = Lexer(input_test)
