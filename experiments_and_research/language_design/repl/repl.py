@@ -5,7 +5,29 @@ class Repl:
     def __init__(self):
         self.exits = ["exit", "quit", "q"]
 
+    def welcome(self):
+        print("Welcome into an experimental interpreter!")
+        print(
+            """
+             ______________
+       ,===:'.,            `-._
+            `:.`---.__         `-._
+              `:.     `--.         `.
+                \.        `.         `.
+        (,,(,    \.         `.   ____,-`.,
+     (,'     `/   \.   ,--.___`.'
+ ,  ,'  ,--.  `,   \.;'         `
+  `{D, {    \  :    \;
+    V,,'    /  /    //
+    j;;    /  ,' ,-//.    ,---.      ,
+    \;'   /  ,' /  _  \  /  _  \   ,'/
+          \   `'  / \  `'  / \  `.' /
+           `.___,'   `.__,'   `.__,'
+            """
+        )
+
     def start(self):
+        self.welcome()
         while True:
             user_input = input(">> ")
             if user_input in self.exits:
