@@ -19,6 +19,13 @@ class Lexer:
         token = self.get_token()
         return token
 
+    def token_generator(self):
+        while True:
+            token = self.get_token()
+            if token.token_type == TokenType.EOF:
+                break
+            yield token
+
     def get_token(self):
         self.skip_whitespace()
         if self.char is None:
