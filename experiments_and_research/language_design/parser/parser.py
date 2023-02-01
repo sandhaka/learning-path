@@ -1,5 +1,13 @@
 from experiments_and_research.language_design.lexer import Lexer, TokenType
-from experiments_and_research.language_design.ast import Identifier
+from experiments_and_research.language_design.ast import (
+    Identifier,
+    PrefixExpression,
+    InfixExpression,
+    IntegerLiteral,
+    Boolean,
+    ExpressionKind,
+)
+
 from .program import Program
 
 
@@ -16,6 +24,16 @@ class Parser:
             TokenType.BANG: self.parse_prefix_expression,
             TokenType.MINUS: self.parse_prefix_expression,
             TokenType.LPAREN: self.parse_grouped_expression,
+        }
+        self.register_infix = {
+            TokenType.PLUS: self.parse_infix_expression,
+            TokenType.MINUS: self.parse_infix_expression,
+            TokenType.SLASH: self.parse_infix_expression,
+            TokenType.ASTERISK: self.parse_infix_expression,
+            TokenType.EQUAL: self.parse_infix_expression,
+            TokenType.NOT_EQUAL: self.parse_infix_expression,
+            TokenType.LESS_THAN: self.parse_infix_expression,
+            TokenType.GREATER_THAN: self.parse_infix_expression,
         }
         # Init current token and peek token
         self.next_token()
@@ -46,8 +64,38 @@ class Parser:
         return Identifier(token.literal)
 
     def parse_prefix_expression(self):
-        return
+        expression = PrefixExpression(self.current_token, self.current_token.literal)
+        self.next_token()
+        expression.right = self.parse_expressions()
+        return expression
+
+    def parse_infix_expression(self):
+        expression = InfixExpression(self.current_token, self.current_token.literal)
+        self.next_token()
+        expression.left = self.parse_expressions()
+        return expression
 
     # Start parsing an expression
     def parse_expressions(self):
-        pass
+        if self.is_register_prefix(self.current_token.token_type):
+            raise FileNotFoundError("No prefix parse function for {} found".format(self.current_token.token_type))
+        statement = self.register_prefix[self.current_token.token_type]()
+        if statement.kind != ExpressionKind.Prefix:
+            raise ValueError("Expected prefix expression")
+        while self.peek_token.token_type != TokenType.SEMICOLON:
+            if self.is_register_infix(self.peek_token.token_type):
+                return statement
+            statement = self.register_infix[self.peek_token.token_type]()
+            if statement.kind != ExpressionKind.Infix:
+                return statement
+            self.next_token()
+        return statement
+
+    def parse_let_statement(self):
+        raise NotImplementedError
+
+    def is_register_prefix(self, token_type: TokenType):
+        return token_type in self.register_prefix.keys()
+
+    def is_register_infix(self, token_type: TokenType):
+        return token_type in self.register_infix.keys()

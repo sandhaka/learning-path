@@ -14,9 +14,9 @@ class ExpressionKind(Enum):
     Prefix = "prefix"
     Infix = "infix"
     Boolean = "boolean"
-    If = "if"
-    FunctionalLiteral = "functionalLiteral"
-    Call = "call"
+    # If = "if"
+    # FunctionalLiteral = "functionalLiteral"
+    # Call = "call"
 
 
 class Node:
