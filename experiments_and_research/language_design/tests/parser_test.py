@@ -4,6 +4,7 @@ from experiments_and_research.language_design.lexer import Lexer
 
 def test_parser():
     input_tests = [
+        "7 - 1 + 4 * 2",
         "x = 5",
         "y = 10 + 4",
         "838383",
