@@ -26,7 +26,6 @@ from experiments_and_research.language_design.ast import (
     GroupedExpression,
     ExpressionKind,
 )
-from .program import Program
 
 
 class Parser:

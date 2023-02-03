@@ -1,4 +1,5 @@
 from experiments_and_research.language_design.lexer import Lexer
+from experiments_and_research.language_design.parser import Parser
 
 
 class Repl:
@@ -34,6 +35,8 @@ class Repl:
                 break
 
             lexer = Lexer(user_input)
+            parser = Parser(lexer)
+            ast = parser.parse_expression()
 
             # TODO: Evaluate expressions. For now, just print tokens
             for token in lexer.token_generator():
