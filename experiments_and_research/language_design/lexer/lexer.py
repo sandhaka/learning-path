@@ -4,7 +4,7 @@ Lexical analysis is the process of converting a sequence of characters into a se
 Tokens are an accessibly small unit of meaning.
 """
 import string
-from .token_cls import Token, TokenType
+from .token_cls import Token, TokenType, Precedence
 
 
 class Lexer:

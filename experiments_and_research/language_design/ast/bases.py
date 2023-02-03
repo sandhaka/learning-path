@@ -14,6 +14,7 @@ class ExpressionKind(Enum):
     Prefix = "prefix"
     Infix = "infix"
     Boolean = "boolean"
+    GroupedExpression = "groupedExpression"
     # If = "if"
     # FunctionalLiteral = "functionalLiteral"
     # Call = "call"

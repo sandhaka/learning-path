@@ -55,6 +55,7 @@ class Parser:
             TokenType.ASSIGN: self.parse_infix_expression,
         }
         self.precedences_map = {
+            TokenType.ASSIGN: Precedence.EQUALS,
             TokenType.EQUAL: Precedence.EQUALS,
             TokenType.NOT_EQUAL: Precedence.EQUALS,
             TokenType.LESS_THAN: Precedence.LESSGREATER,
@@ -83,11 +84,11 @@ class Parser:
         return PrefixExpression(operator, right)
 
     def parse_infix_expression(self, left):
-        operator = self.current_token.literal
-        precedence = self.current_token.precedence
+        infix_exp = InfixExpression(left, self.current_token.literal, None)
+        precedence = self.current_precedence()
         self.next_token()
-        right = self.parse_expression(precedence)
-        return InfixExpression(left, operator, right)
+        infix_exp.right = self.parse_expression(precedence)
+        return infix_exp
 
     def parse_boolean(self):
         return Boolean(self.current_token.literal)
@@ -108,4 +109,22 @@ class Parser:
         raise NotImplementedError
 
     def parse_expression(self, precedence=Precedence.LOWEST):
-        pass
+        if self.current_token.token_type not in self.prefix_parse_fns:
+            raise Exception(f"no prefix parse function for {self.current_token.token_type}")
+        left_exp = self.prefix_parse_fns[self.current_token.token_type]()
+        while self.peek_token.token_type != TokenType.EOF and precedence.value < self.peek_precedence().value:
+            if self.peek_token.token_type not in self.infix_parse_fns:
+                return left_exp
+            self.next_token()
+            left_exp = self.infix_parse_fns[self.current_token.token_type](left_exp)
+        return left_exp
+
+    def current_precedence(self):
+        if self.current_token.token_type in self.precedences_map:
+            return self.precedences_map[self.current_token.token_type]
+        return Precedence.LOWEST
+
+    def peek_precedence(self):
+        if self.peek_token.token_type in self.precedences_map:
+            return self.precedences_map[self.peek_token.token_type]
+        return Precedence.LOWEST
