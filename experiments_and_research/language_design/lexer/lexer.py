@@ -86,7 +86,7 @@ class Lexer:
 
     def read_number(self):
         initial_offset = self.offset
-        while self.char is not None and self.char.isdigit():
+        while self.char is not None and (self.char.isdigit() or self.char == "."):
             self.read_char()
         return Token(TokenType.INT, self.input[initial_offset : self.offset])
 
