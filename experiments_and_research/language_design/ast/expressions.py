@@ -1,4 +1,4 @@
-from bases import Node, ExpressionKind
+from .bases import Node, ExpressionKind
 
 
 class Identifier(Node):
@@ -27,3 +27,8 @@ class IntegerLiteral(Node):
 class Boolean(Node):
     def __init__(self, value):
         super().__init__(ExpressionKind.Boolean, value)
+
+
+class GroupedExpression(Node):
+    def __init__(self, expression):
+        super().__init__(ExpressionKind.GroupedExpression, expression)

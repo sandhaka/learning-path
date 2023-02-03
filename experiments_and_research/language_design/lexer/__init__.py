@@ -1,2 +1,2 @@
 from .lexer import Lexer
-from .token_cls import Token, TokenType
+from .token_cls import Token, TokenType, Precedence

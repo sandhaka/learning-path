@@ -2,10 +2,10 @@ from enum import Enum
 
 
 class StatementKind(Enum):
-    Let = "let"
-    Return = "return"
+    # Let = "let"
+    # Return = "return"
     Expression = "expression"
-    Block = "block"
+    # Block = "block"
 
 
 class ExpressionKind(Enum):

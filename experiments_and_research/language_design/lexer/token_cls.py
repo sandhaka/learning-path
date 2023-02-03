@@ -2,35 +2,45 @@ import string
 from enum import Enum
 
 
+class Precedence(Enum):
+    LOWEST = 0
+    EQUALS = 1
+    LESSGREATER = 2
+    SUM = 3
+    PRODUCT = 4
+    PREFIX = 5
+    CALL = 6
+
+
 class TokenType(Enum):
-    ILLEGAL = "ILLEGAL",
-    EOF = "EOF",
-    IDENT = "IDENT",
-    INT = "INT",
-    ASSIGN = "=",
-    PLUS = "+",
-    MINUS = "-",
-    BANG = "!",
-    ASTERISK = "*",
-    SLASH = "/",
-    LESS_THAN = "<",
-    GREATER_THAN = ">",
-    COMMA = ",",
-    SEMICOLON = ";",
-    LPAREN = "(",
-    RPAREN = ")",
-    LBRACE = "{",
-    RBRACE = "}",
-    LBRACKET = "[",
-    RBRACKET = "]",
-    FUNCTION = "FUNCTION",
-    LET = "LET",
-    TRUE = "TRUE",
-    FALSE = "FALSE",
-    IF = "IF",
-    ELSE = "ELSE",
-    RETURN = "RETURN",
-    EQUAL = "==",
+    ILLEGAL = ("ILLEGAL",)
+    EOF = ("EOF",)
+    IDENT = ("IDENT",)
+    INT = ("INT",)
+    ASSIGN = ("=",)
+    PLUS = ("+",)
+    MINUS = ("-",)
+    BANG = ("!",)
+    ASTERISK = ("*",)
+    SLASH = ("/",)
+    LESS_THAN = ("<",)
+    GREATER_THAN = (">",)
+    COMMA = (",",)
+    SEMICOLON = (";",)
+    LPAREN = ("(",)
+    RPAREN = (")",)
+    LBRACE = ("{",)
+    RBRACE = ("}",)
+    LBRACKET = ("[",)
+    RBRACKET = ("]",)
+    FUNCTION = ("FUNCTION",)
+    LET = ("LET",)
+    TRUE = ("TRUE",)
+    FALSE = ("FALSE",)
+    IF = ("IF",)
+    ELSE = ("ELSE",)
+    RETURN = ("RETURN",)
+    EQUAL = ("==",)
     NOT_EQUAL = "!="
 
 
