@@ -1,5 +1,5 @@
 """
-Grammar for the interpreter language in EBNF syntax
+Grammar example for the interpreter language in EBNF syntax
 https://en.wikipedia.org/wiki/Extended_Backus–Naur_form
 
 expression      ::= factor | expression operator expression
@@ -46,10 +46,10 @@ class Parser:
             TokenType.MINUS: self.parse_infix_expression,
             TokenType.SLASH: self.parse_infix_expression,
             TokenType.ASTERISK: self.parse_infix_expression,
-            TokenType.EQUAL: self.parse_infix_expression,
-            TokenType.NOT_EQUAL: self.parse_infix_expression,
-            TokenType.LESS_THAN: self.parse_infix_expression,
-            TokenType.GREATER_THAN: self.parse_infix_expression,
+            TokenType.EQUAL: self.parse_infix_expression,  # Not available yet
+            TokenType.NOT_EQUAL: self.parse_infix_expression,  # Not available yet
+            TokenType.LESS_THAN: self.parse_infix_expression,  # Not available yet
+            TokenType.GREATER_THAN: self.parse_infix_expression,  # Not available yet
             TokenType.ASSIGN: self.parse_infix_expression,
         }
         self.precedences_map = {

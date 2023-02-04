@@ -1,5 +1,4 @@
-from experiments_and_research.language_design.lexer import Lexer
-from experiments_and_research.language_design.parser import Parser
+from experiments_and_research.language_design.evaluator import Evaluator
 
 
 class Repl:
@@ -14,12 +13,10 @@ class Repl:
 
     def start(self):
         self.welcome()
+        evaluator = Evaluator()
         while True:
             user_input = input(">> ")
             if user_input in self.exits:
                 break
-
-            parser = Parser(Lexer(user_input))
-            ast = parser.parse_expression()
-
-            # TODO: Evaluate expressions.
+            prompt = evaluator.evaluate(user_input)
+            print(prompt)

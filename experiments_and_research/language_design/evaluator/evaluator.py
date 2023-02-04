@@ -35,7 +35,10 @@ class Evaluator:
             return self.evaluate_grouped_expression(ast)
 
     def evaluate_identifier(self, ast: Identifier):
-        return self.env.get(ast.literal, ast.literal)
+        value = self.env.get(ast.literal, ast.literal)
+        if self.is_numeric(value) or isinstance(value, str):
+            return value
+        return self.evaluate_statement(value)
 
     def evaluate_prefix(self, ast: PrefixExpression):
         operator = ast.literal
@@ -64,21 +67,24 @@ class Evaluator:
             raise Exception(f"Unknown operator: {operator}")
 
         operator = ast.literal
-        if operator == "=" and isinstance(ast.left, Identifier) and isinstance(ast.right, NumberLiteral):
-            right = self.evaluate_statement(ast.right)
-            self.env[ast.left.literal] = self.evaluate_statement(ast.right)
-            return right
         left = self.evaluate_statement(ast.left)
         right = self.evaluate_statement(ast.right)
-        if isinstance(left, int) and isinstance(right, int):
+        if self.is_numeric(left) and self.is_numeric(right):
             return evaluate_numeric_infix(left, right, operator)
-        return Identifier(f"{left} {operator} {right}")
+        if operator == "=" and isinstance(ast.left, Identifier):
+            self.env[left] = right
+            return right
+        return ast
 
     @staticmethod
     def evaluate_integer(ast: NumberLiteral):
         if "." in ast.literal:
             return float(ast.literal)
         return int(ast.literal)
+
+    @staticmethod
+    def is_numeric(obj):
+        return isinstance(obj, int) or isinstance(obj, float)
 
     def evaluate_grouped_expression(self, ast: GroupedExpression):
         return self.evaluate_statement(ast.body)
