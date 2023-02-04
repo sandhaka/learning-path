@@ -1,5 +1,5 @@
 from experiments_and_research.language_design.parser import Parser
-from experiments_and_research.language_design.lexer import Lexer
+from experiments_and_research.language_design.lexer import Lexer, TokenType
 from experiments_and_research.language_design.ast import (
     Identifier,
     PrefixExpression,
@@ -16,9 +16,13 @@ class Evaluator:
         self.env = env or {}
 
     def evaluate(self, statement: str):
+        if statement.isspace() or statement == "":
+            return ""
         lexer = Lexer(statement)
         parser = Parser(lexer)
         ast = parser.parse_expression()
+        if parser.peek_token.token_type != TokenType.EOF:
+            raise SyntaxError("Expected EOF")
         ret = self.evaluate_statement(ast)
         return ret
 

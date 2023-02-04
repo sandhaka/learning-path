@@ -1,3 +1,5 @@
+import pytest
+
 from experiments_and_research.language_design.evaluator import Evaluator
 
 
@@ -134,3 +136,15 @@ def test_evaluator_incorrect_seq3():
         assert False
     except RuntimeError as e:
         assert str(e) == "y is not defined"
+
+
+def test_wrong_input():
+    evaluator = Evaluator()
+    with pytest.raises(Exception):
+        evaluator.evaluate("1.4.5")
+
+
+def test_wrong_input2():
+    evaluator = Evaluator()
+    with pytest.raises(Exception):
+        evaluator.evaluate("1 5")
