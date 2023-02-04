@@ -49,7 +49,7 @@
   - [Tabulation](./dynamic_programming/sum/best_sum_tab.py)
 ### Experiments and research
 - [x] [knowledge base](experiments_and_research/knowledge_base_test.py)
-- [ ] interpreter
+- [x] [interpreter](experiments_and_research/language_design)
 ### Utils
 - [x] [Benchmarks](./utils/benchmarks.py)
 - [x] [Logging](./utils/logging.py)
