@@ -1,55 +1,62 @@
 from experiments_and_research.language_design.lexer import Lexer, Token, TokenType
 
-simple_expr_inputs = [
-    "x = 7",
-    "x + 6",
-    "y + 7",
-    "var = 1024",
-    "let x = 7",
-    "let y = 7",
-    "let foobar = 7",
-    # Use semicolon to separate as rows
-    "let x = 7; let y = 8",
-    "let x = 7; let y = 8; let foobar = 9",
-    # Multi lines
-    """let f = 89;
-    let g =7""",
-    "(4 - 6) * 7",
-    # A more complex expression
-    """
-      let five = 5;
-      let ten = 10;
 
-      let add = fn(x, y) {
-        x + y;
-      };
-
-      let result = add(five, ten);
-      !-/*5;
-      5 < 10 > 5;
-
-      if (5 < 10) {
-        return true;
-      } else {
-        return false;
-      }
-
-      10 == 10;
-      10 != 9;
-    """,
-]
-
-
-def test_lexer_demo():
-    for input_test in simple_expr_inputs:
-        print(f"{input_test}:")
-        lexer = Lexer(input_test)
-        tokens = []
+def init_lexer(statement):
+    lexer = Lexer(statement)
+    tokens = []
+    token = lexer.next_token()
+    tokens.append(token)
+    while token.token_type != TokenType.EOF:
         token = lexer.next_token()
         tokens.append(token)
-        while token.token_type != TokenType.EOF:
-            token = lexer.next_token()
-            tokens.append(token)
-        for t in tokens:
-            print(t)
-        print("---")
+    return tokens
+
+
+def test_base_statement():
+    statement = "x = 7"
+    tokens = init_lexer(statement)
+    assert len(tokens) == 4
+    assert tokens[0].token_type == TokenType.IDENT
+    assert tokens[1].token_type == TokenType.ASSIGN
+    assert tokens[2].token_type == TokenType.INT
+    assert tokens[3].token_type == TokenType.EOF
+
+
+def test_base_statement2():
+    statement = "x + 6"
+    tokens = init_lexer(statement)
+    assert len(tokens) == 4
+    assert tokens[0].token_type == TokenType.IDENT
+    assert tokens[1].token_type == TokenType.PLUS
+    assert tokens[2].token_type == TokenType.INT
+    assert tokens[3].token_type == TokenType.EOF
+
+
+def test_statement():
+    statement = "(4 - 6) * 7"
+    tokens = init_lexer(statement)
+    assert len(tokens) == 8
+    assert tokens[0].token_type == TokenType.LPAREN
+    assert tokens[1].token_type == TokenType.INT
+    assert tokens[2].token_type == TokenType.MINUS
+    assert tokens[3].token_type == TokenType.INT
+    assert tokens[4].token_type == TokenType.RPAREN
+    assert tokens[5].token_type == TokenType.ASTERISK
+    assert tokens[6].token_type == TokenType.INT
+    assert tokens[7].token_type == TokenType.EOF
+
+
+def test_statement2():
+    statement = "10 == 10"
+    lexer = Lexer(statement)
+    tokens = []
+    token = lexer.next_token()
+    tokens.append(token)
+    while token.token_type != TokenType.EOF:
+        token = lexer.next_token()
+        tokens.append(token)
+    assert len(tokens) == 4
+    assert tokens[0].token_type == TokenType.INT
+    assert tokens[1].token_type == TokenType.EQUAL
+    assert tokens[2].token_type == TokenType.INT
+    assert tokens[3].token_type == TokenType.EOF

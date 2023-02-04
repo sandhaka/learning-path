@@ -24,7 +24,6 @@ from experiments_and_research.language_design.ast import (
     InfixExpression,
     Boolean,
     GroupedExpression,
-    ExpressionKind,
 )
 
 

@@ -8,24 +8,8 @@ class Repl:
 
     def welcome(self):
         print("Welcome into an experimental interpreter!")
-        print(
-            """
-             ______________
-       ,===:'.,            `-._
-            `:.`---.__         `-._
-              `:.     `--.         `.
-                \.        `.         `.
-        (,,(,    \.         `.   ____,-`.,
-     (,'     `/   \.   ,--.___`.'
- ,  ,'  ,--.  `,   \.;'         `
-  `{D, {    \  :    \;
-    V,,'    /  /    //
-    j;;    /  ,' ,-//.    ,---.      ,
-    \;'   /  ,' /  _  \  /  _  \   ,'/
-          \   `'  / \  `'  / \  `.' /
-           `.___,'   `.__,'   `.__,'
-            """
-        )
+        print("Type 'quit|exit|q' to quit the interpreter.")
+        print()
 
     def start(self):
         self.welcome()
@@ -34,10 +18,7 @@ class Repl:
             if user_input in self.exits:
                 break
 
-            lexer = Lexer(user_input)
-            parser = Parser(lexer)
+            parser = Parser(Lexer(user_input))
             ast = parser.parse_expression()
 
-            # TODO: Evaluate expressions. For now, just print tokens
-            for token in lexer.token_generator():
-                print(token)
+            # TODO: Evaluate expressions.
