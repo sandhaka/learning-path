@@ -1,5 +1,6 @@
 <samp>
 
+[![Python application](https://github.com/sandhaka/learning-path/actions/workflows/python-app.yml/badge.svg)](https://github.com/sandhaka/learning-path/actions/workflows/python-app.yml)
 # Data Structures & Algorithms
 ## Resources
 - [Big O Cheatsheet](https://www.bigocheatsheet.com)
