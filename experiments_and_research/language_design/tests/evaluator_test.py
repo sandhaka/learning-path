@@ -45,11 +45,30 @@ def test_plus():
     assert result == 10
 
 
+def test_modulo():
+    result = Evaluator().evaluate("5 % 2")
+    assert result == 1
+
+
+def test_modulo2():
+    result = Evaluator().evaluate("7 % 4")
+    assert result == 3
+
+
+def test_basic_arithmetic():
+    evaluator = Evaluator()
+    assert evaluator.evaluate("1 + 1") == 2
+    assert evaluator.evaluate("2 - 1") == 1
+    assert evaluator.evaluate("2 * 3") == 6
+    assert evaluator.evaluate("8 / 4") == 2
+    assert evaluator.evaluate("7 % 4") == 3
+
+
 def test_evaluator_interactively():
-    result = Evaluator()
-    result.evaluate("a = 5")
-    result.evaluate("b = 5")
-    result = result.evaluate("a + b")
+    evaluator = Evaluator()
+    evaluator.evaluate("a = 5")
+    evaluator.evaluate("b = 5")
+    result = evaluator.evaluate("a + b")
     assert result == 10
 
 
@@ -80,8 +99,38 @@ def test_evaluator_interactively4():
 
 def test_evaluator_interactively5():
     evaluator = Evaluator()
-    evaluator.evaluate("y = x + a")
     evaluator.evaluate("x = 1")
     evaluator.evaluate("a = 1")
+    evaluator.evaluate("y = x + a")
     result = evaluator.evaluate("y")
     assert result == 2
+
+
+def test_evaluator_incorrect_seq():
+    evaluator = Evaluator()
+    try:
+        evaluator.evaluate("y")
+    except RuntimeError as e:
+        assert str(e) == "y is not defined"
+
+
+def test_evaluator_incorrect_seq2():
+    evaluator = Evaluator()
+    try:
+        evaluator.evaluate("x = 1")
+        evaluator.evaluate("y = x + a")
+        evaluator.evaluate("a = 1")
+    except RuntimeError as e:
+        assert str(e) == "a is not defined"
+
+
+def test_evaluator_incorrect_seq3():
+    evaluator = Evaluator()
+    assert evaluator.evaluate("x = 1") == 1
+    assert evaluator.evaluate("x") == 1
+    assert evaluator.evaluate("x + 3") == 4
+    try:
+        evaluator.evaluate("y")
+        assert False
+    except RuntimeError as e:
+        assert str(e) == "y is not defined"

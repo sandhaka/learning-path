@@ -45,6 +45,7 @@ class Parser:
             TokenType.PLUS: self.parse_infix_expression,
             TokenType.MINUS: self.parse_infix_expression,
             TokenType.SLASH: self.parse_infix_expression,
+            TokenType.MOD: self.parse_infix_expression,
             TokenType.ASTERISK: self.parse_infix_expression,
             TokenType.EQUAL: self.parse_infix_expression,  # Not available yet
             TokenType.NOT_EQUAL: self.parse_infix_expression,  # Not available yet
@@ -60,6 +61,7 @@ class Parser:
             TokenType.GREATER_THAN: Precedence.LESSGREATER,
             TokenType.PLUS: Precedence.SUM,
             TokenType.MINUS: Precedence.SUM,
+            TokenType.MOD: Precedence.PRODUCT,
             TokenType.SLASH: Precedence.PRODUCT,
             TokenType.ASTERISK: Precedence.PRODUCT,
             TokenType.LPAREN: Precedence.CALL,
@@ -95,7 +97,7 @@ class Parser:
         self.next_token()
         exp = self.parse_expression()
         if self.peek_token.token_type != TokenType.RPAREN:
-            raise Exception("expected )")
+            raise SyntaxError("expected )")
         self.next_token()
         return GroupedExpression(exp)
 
@@ -108,7 +110,7 @@ class Parser:
 
     def parse_expression(self, precedence=Precedence.LOWEST):
         if self.current_token.token_type not in self.prefix_parse_fns:
-            raise Exception(f"no prefix parse function for {self.current_token.token_type}")
+            raise SyntaxError(f"no prefix parse function for {self.current_token.token_type}")
         left_exp = self.prefix_parse_fns[self.current_token.token_type]()
         while self.peek_token.token_type != TokenType.EOF and precedence.value < self.peek_precedence().value:
             if self.peek_token.token_type not in self.infix_parse_fns:

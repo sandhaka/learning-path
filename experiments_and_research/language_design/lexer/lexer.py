@@ -52,6 +52,8 @@ class Lexer:
             return self.build_token(TokenType.ASTERISK, self.char)
         if self.char == "/":
             return self.build_token(TokenType.SLASH, self.char)
+        if self.char == "%":
+            return self.build_token(TokenType.MOD, self.char)
         if self.char == "<":
             return self.build_token(TokenType.LESS_THAN, self.char)
         if self.char == ">":

@@ -35,7 +35,9 @@ class Evaluator:
             return self.evaluate_grouped_expression(ast)
 
     def evaluate_identifier(self, ast: Identifier):
-        value = self.env.get(ast.literal, ast.literal)
+        value = self.env.get(ast.literal, None)
+        if value is None:
+            raise RuntimeError(f"{ast.literal} is not defined")
         if self.is_numeric(value) or isinstance(value, str):
             return value
         return self.evaluate_statement(value)
@@ -43,11 +45,11 @@ class Evaluator:
     def evaluate_prefix(self, ast: PrefixExpression):
         operator = ast.literal
         right = self.evaluate_statement(ast.right)
-        if operator == "!":
-            return not right
+        # if operator == "!":
+        #     return not right
         if operator == "-":
             return -right
-        raise Exception(f"Unknown operator: {operator}")
+        raise SyntaxError(f"Unknown operator: {operator}")
 
     def evaluate_infix(self, ast: InfixExpression):
         def evaluate_numeric_infix(left_op, right_op, operator):
@@ -59,21 +61,24 @@ class Evaluator:
                 return left_op * right_op
             if operator == "/":
                 return left_op / right_op
+            if operator == "%":
+                return left_op % right_op
             # Not available yet
             # if operator == "==":
             #     return left == right
             # if operator == "!=":
             #     return left != right
-            raise Exception(f"Unknown operator: {operator}")
+            raise SyntaxError(f"Unknown operator: {operator}")
 
-        operator = ast.literal
+        infix_operator = ast.literal
+        if infix_operator == "=" and isinstance(ast.left, Identifier):
+            right = self.evaluate_statement(ast.right)
+            self.env[ast.left.literal] = right
+            return right
         left = self.evaluate_statement(ast.left)
         right = self.evaluate_statement(ast.right)
         if self.is_numeric(left) and self.is_numeric(right):
-            return evaluate_numeric_infix(left, right, operator)
-        if operator == "=" and isinstance(ast.left, Identifier):
-            self.env[left] = right
-            return right
+            return evaluate_numeric_infix(left, right, infix_operator)
         return ast
 
     @staticmethod

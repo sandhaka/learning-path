@@ -32,7 +32,7 @@ def test_base_statement2():
     assert tokens[3].token_type == TokenType.EOF
 
 
-def test_statement():
+def test_parenthesis():
     statement = "(4 - 6) * 7"
     tokens = init_lexer(statement)
     assert len(tokens) == 8
@@ -46,7 +46,7 @@ def test_statement():
     assert tokens[7].token_type == TokenType.EOF
 
 
-def test_statement2():
+def test_equality():
     statement = "10 == 10"
     lexer = Lexer(statement)
     tokens = []
@@ -58,5 +58,15 @@ def test_statement2():
     assert len(tokens) == 4
     assert tokens[0].token_type == TokenType.NUMB
     assert tokens[1].token_type == TokenType.EQUAL
+    assert tokens[2].token_type == TokenType.NUMB
+    assert tokens[3].token_type == TokenType.EOF
+
+
+def test_modulo():
+    statement = "10 % 3"
+    tokens = init_lexer(statement)
+    assert len(tokens) == 4
+    assert tokens[0].token_type == TokenType.NUMB
+    assert tokens[1].token_type == TokenType.MOD
     assert tokens[2].token_type == TokenType.NUMB
     assert tokens[3].token_type == TokenType.EOF

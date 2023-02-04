@@ -23,6 +23,7 @@ class TokenType(Enum):
     BANG = ("!",)
     ASTERISK = ("*",)
     SLASH = ("/",)
+    MOD = ("%",)
     LESS_THAN = ("<",)
     GREATER_THAN = (">",)
     COMMA = (",",)

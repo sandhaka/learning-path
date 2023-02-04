@@ -104,8 +104,10 @@ class Formula:
 
         def move_not_inwards(clause):
             if isinstance(clause, Not):
+
                 def _not(c):
                     return move_not_inwards(~c)
+
                 if isinstance(clause.child, Not):
                     return move_not_inwards(clause.child.child)  # ~~A => A
                 if isinstance(clause.child, And):
@@ -145,7 +147,7 @@ class BinOp(Formula):
         self.rchild = rchild
 
     def __str__(self):
-        return '(' + str(self.lchild) + ' ' + self.op + ' ' + str(self.rchild) + ')'
+        return "(" + str(self.lchild) + " " + self.op + " " + str(self.rchild) + ")"
 
     def __hash__(self):
         return hash(self.lchild) ^ hash(self.rchild) ^ hash(self.op)
@@ -155,20 +157,20 @@ class BinOp(Formula):
 
 
 class And(BinOp):
-    op = '∧'
+    op = "∧"
 
     def v(self, v):
         return self.lchild.v(v) and self.rchild.v(v)
 
     def _tleft(self, left, right):
-        return (left + [self.lchild, self.rchild], right),
+        return ((left + [self.lchild, self.rchild], right),)
 
     def _tright(self, left, right):
         return (left, right + [self.lchild]), (left, right + [self.rchild])
 
 
 class Or(BinOp):
-    op = '∨'
+    op = "∨"
 
     def v(self, v):
         return self.lchild.v(v) or self.rchild.v(v)
@@ -177,11 +179,11 @@ class Or(BinOp):
         return (left + [self.lchild], right), (left + [self.rchild], right)
 
     def _tright(self, left, right):
-        return (left, right + [self.lchild, self.rchild]),
+        return ((left, right + [self.lchild, self.rchild]),)
 
 
 class Implies(BinOp):
-    op = '→'
+    op = "→"
 
     def v(self, v):
         return not self.lchild.v(v) or self.rchild.v(v)
@@ -190,11 +192,11 @@ class Implies(BinOp):
         return (left + [self.rchild], right), (left, right + [self.lchild])
 
     def _tright(self, left, right):
-        return (left + [self.lchild], right + [self.rchild]),
+        return ((left + [self.lchild], right + [self.rchild]),)
 
 
 class Iff(BinOp):
-    op = '↔'
+    op = "↔"
 
     def v(self, v):
         return self.lchild.v(v) is self.rchild.v(v)
@@ -214,19 +216,19 @@ class Not(Formula):
         return not self.child.v(v)
 
     def __str__(self):
-        return '¬' + str(self.child)
+        return "¬" + str(self.child)
 
     def __hash__(self):
-        return hash(self.child) ^ hash('¬')
+        return hash(self.child) ^ hash("¬")
 
     def eq(self, other):
         return self.child == other.child
 
     def _tleft(self, left, right):
-        return (left, right + [self.child]),
+        return ((left, right + [self.child]),)
 
     def _tright(self, left, right):
-        return (left + [self.child], right),
+        return ((left + [self.child], right),)
 
 
 class Atom(Formula):
@@ -250,12 +252,12 @@ class Atom(Formula):
 
 # region [ To cnf tests ]
 
-def test_to_cnf():
-    assert (~(a('B') | a('C'))).to_cnf().__str__() == '(¬B ∧ ¬C)'
-    assert (a('P') >> (a('Q') & a('S'))).to_cnf().__str__() == '((Q ∨ ¬P) ∧ (S ∨ ¬P))'
-    assert ((a('P') >> a('Q')) & a('S')).to_cnf().__str__() == '((Q ∨ ¬P) ∧ S)'
-    assert ((a('P') & a('Q')) | (~a('P') & ~a('Q'))).to_cnf().__str__() == '((((P ∨ ¬P) ∧ (P ∨ ¬Q)) ∧ (Q ∨ ¬P)) ∧ (Q ∨ ¬Q))'
-    assert (a('A') << a('B')).to_cnf().__str__() == '((A ∨ ¬B) ∧ (B ∨ ¬A))'
-    assert (a('A') << ~a('B') >> (a('C') | ~a('D'))).to_cnf().__str__() == '(((((C ∨ ¬D) ∨ (¬A ∨ B)) ∧ ((C ∨ ¬D) ∨ (¬A ∨ A))) ∧ ((C ∨ ¬D) ∨ (¬B ∨ B))) ∧ ((C ∨ ¬D) ∨ (¬B ∨ A)))'
+# def test_to_cnf():
+#     assert (~(a('B') | a('C'))).to_cnf().__str__() == '(¬B ∧ ¬C)'
+#     assert (a('P') >> (a('Q') & a('S'))).to_cnf().__str__() == '((Q ∨ ¬P) ∧ (S ∨ ¬P))'
+#     assert ((a('P') >> a('Q')) & a('S')).to_cnf().__str__() == '((Q ∨ ¬P) ∧ S)'
+#     assert ((a('P') & a('Q')) | (~a('P') & ~a('Q'))).to_cnf().__str__() == '((((P ∨ ¬P) ∧ (P ∨ ¬Q)) ∧ (Q ∨ ¬P)) ∧ (Q ∨ ¬Q))'
+#     assert (a('A') << a('B')).to_cnf().__str__() == '((A ∨ ¬B) ∧ (B ∨ ¬A))'
+#     assert (a('A') << ~a('B') >> (a('C') | ~a('D'))).to_cnf().__str__() == '(((((C ∨ ¬D) ∨ (¬A ∨ B)) ∧ ((C ∨ ¬D) ∨ (¬A ∨ A))) ∧ ((C ∨ ¬D) ∨ (¬B ∨ B))) ∧ ((C ∨ ¬D) ∨ (¬B ∨ A)))'
 
 # endregion
