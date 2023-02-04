@@ -19,7 +19,7 @@ digit           ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 from experiments_and_research.language_design.lexer import Lexer, TokenType, Precedence
 from experiments_and_research.language_design.ast import (
     Identifier,
-    IntegerLiteral,
+    NumberLiteral,
     PrefixExpression,
     InfixExpression,
     Boolean,
@@ -34,11 +34,11 @@ class Parser:
         self.current_token = None
         self.prefix_parse_fns = {
             TokenType.IDENT: self.parse_identifier,
-            TokenType.INT: self.parse_integer_literal,
+            TokenType.NUMB: self.parse_integer_literal,
             TokenType.BANG: self.parse_prefix_expression,
             TokenType.MINUS: self.parse_prefix_expression,
-            TokenType.TRUE: self.parse_boolean,
-            TokenType.FALSE: self.parse_boolean,
+            TokenType.TRUE: self.parse_boolean,  # Not available yet
+            TokenType.FALSE: self.parse_boolean,  # Not available yet
             TokenType.LPAREN: self.parse_grouped_expression,
         }
         self.infix_parse_fns = {
@@ -73,7 +73,7 @@ class Parser:
         return Identifier(self.current_token.literal)
 
     def parse_integer_literal(self):
-        return IntegerLiteral(self.current_token.literal)
+        return NumberLiteral(self.current_token.literal)
 
     def parse_prefix_expression(self):
         operator = self.current_token.literal

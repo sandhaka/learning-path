@@ -4,7 +4,7 @@ Lexical analysis is the process of converting a sequence of characters into a se
 Tokens are an accessibly small unit of meaning.
 """
 import string
-from .token_cls import Token, TokenType, Precedence
+from .token_cls import Token, TokenType
 
 
 class Lexer:
@@ -88,7 +88,7 @@ class Lexer:
         initial_offset = self.offset
         while self.char is not None and (self.char.isdigit() or self.char == "."):
             self.read_char()
-        return Token(TokenType.INT, self.input[initial_offset : self.offset])
+        return Token(TokenType.NUMB, self.input[initial_offset : self.offset])
 
     def skip_whitespace(self):
         while self.char is not None and self.char.isspace():

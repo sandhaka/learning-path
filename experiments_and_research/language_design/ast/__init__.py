@@ -1,2 +1,2 @@
 from .bases import ExpressionKind
-from .expressions import Identifier, PrefixExpression, InfixExpression, IntegerLiteral, Boolean, GroupedExpression
+from .expressions import Node, Identifier, PrefixExpression, InfixExpression, NumberLiteral, Boolean, GroupedExpression

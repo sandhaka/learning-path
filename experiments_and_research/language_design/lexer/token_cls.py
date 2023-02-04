@@ -16,7 +16,7 @@ class TokenType(Enum):
     ILLEGAL = ("ILLEGAL",)
     EOF = ("EOF",)
     IDENT = ("IDENT",)
-    INT = ("INT",)
+    NUMB = ("NUMB",)
     ASSIGN = ("=",)
     PLUS = ("+",)
     MINUS = ("-",)

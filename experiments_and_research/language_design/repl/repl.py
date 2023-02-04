@@ -6,7 +6,8 @@ class Repl:
     def __init__(self):
         self.exits = ["exit", "quit", "q"]
 
-    def welcome(self):
+    @staticmethod
+    def welcome():
         print("Welcome into an experimental interpreter!")
         print("Type 'quit|exit|q' to quit the interpreter.")
         print()

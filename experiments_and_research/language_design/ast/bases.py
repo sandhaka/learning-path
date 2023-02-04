@@ -10,7 +10,7 @@ class StatementKind(Enum):
 
 class ExpressionKind(Enum):
     Identifier = "identifier"
-    IntegerLiteral = "integerLiteral"
+    NumberLiteral = "numberLiteral"
     Prefix = "prefix"
     Infix = "infix"
     Boolean = "boolean"

@@ -19,9 +19,9 @@ class InfixExpression(Node):
         self.right = right
 
 
-class IntegerLiteral(Node):
+class NumberLiteral(Node):
     def __init__(self, value):
-        super().__init__(ExpressionKind.IntegerLiteral, value)
+        super().__init__(ExpressionKind.NumberLiteral, value)
 
 
 class Boolean(Node):
@@ -32,3 +32,4 @@ class Boolean(Node):
 class GroupedExpression(Node):
     def __init__(self, expression):
         super().__init__(ExpressionKind.GroupedExpression, expression)
+        self.body = expression

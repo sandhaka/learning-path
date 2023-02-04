@@ -1,4 +1,4 @@
-from experiments_and_research.language_design.lexer import Lexer, Token, TokenType
+from experiments_and_research.language_design.lexer import Lexer, TokenType
 
 
 def init_lexer(statement):
@@ -18,7 +18,7 @@ def test_base_statement():
     assert len(tokens) == 4
     assert tokens[0].token_type == TokenType.IDENT
     assert tokens[1].token_type == TokenType.ASSIGN
-    assert tokens[2].token_type == TokenType.INT
+    assert tokens[2].token_type == TokenType.NUMB
     assert tokens[3].token_type == TokenType.EOF
 
 
@@ -28,7 +28,7 @@ def test_base_statement2():
     assert len(tokens) == 4
     assert tokens[0].token_type == TokenType.IDENT
     assert tokens[1].token_type == TokenType.PLUS
-    assert tokens[2].token_type == TokenType.INT
+    assert tokens[2].token_type == TokenType.NUMB
     assert tokens[3].token_type == TokenType.EOF
 
 
@@ -37,12 +37,12 @@ def test_statement():
     tokens = init_lexer(statement)
     assert len(tokens) == 8
     assert tokens[0].token_type == TokenType.LPAREN
-    assert tokens[1].token_type == TokenType.INT
+    assert tokens[1].token_type == TokenType.NUMB
     assert tokens[2].token_type == TokenType.MINUS
-    assert tokens[3].token_type == TokenType.INT
+    assert tokens[3].token_type == TokenType.NUMB
     assert tokens[4].token_type == TokenType.RPAREN
     assert tokens[5].token_type == TokenType.ASTERISK
-    assert tokens[6].token_type == TokenType.INT
+    assert tokens[6].token_type == TokenType.NUMB
     assert tokens[7].token_type == TokenType.EOF
 
 
@@ -56,7 +56,7 @@ def test_statement2():
         token = lexer.next_token()
         tokens.append(token)
     assert len(tokens) == 4
-    assert tokens[0].token_type == TokenType.INT
+    assert tokens[0].token_type == TokenType.NUMB
     assert tokens[1].token_type == TokenType.EQUAL
-    assert tokens[2].token_type == TokenType.INT
+    assert tokens[2].token_type == TokenType.NUMB
     assert tokens[3].token_type == TokenType.EOF
