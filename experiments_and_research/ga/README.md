@@ -37,7 +37,7 @@ ensures sufficient genetic diversity for the problem at hand, but can lead to a 
 to a value larger than required[^2].
 
 #### Notes
-- [^1]: [Evolved Antenna](https://en.wikipedia.org/wiki/Evolved_antenna)
-- [^2]: [Wikipedia: Genetic Algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm)
+[^1]: [Evolved Antenna](https://en.wikipedia.org/wiki/Evolved_antenna)
+[^2]: [Wikipedia: Genetic Algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm)
 
 </samp>
