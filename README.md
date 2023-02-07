@@ -48,8 +48,9 @@
   - [Memoization](./dynamic_programming/sum/best_sum.py)
   - [Tabulation](./dynamic_programming/sum/best_sum_tab.py)
 ### Experiments and research
-- [x] [knowledge base](experiments_and_research/knowledge_base_test.py)
-- [x] [interpreter](experiments_and_research/language_design)
+- [x] [Knowledge base](experiments_and_research/knowledge_base_test.py)
+- [x] [Interpreter](experiments_and_research/language_design)
+- [ ] Genetic algorithms
 ### Utils
 - [x] [Benchmarks](./utils/benchmarks.py)
 - [x] [Logging](./utils/logging.py)
