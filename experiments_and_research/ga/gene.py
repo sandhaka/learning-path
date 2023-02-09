@@ -1,5 +1,8 @@
+import typing
+
+
 class Gene:
-    def __init__(self, value: list[bool], fitness):
+    def __init__(self, value: list[typing.Any], fitness: float | None = None):
         assert value is not None and len(value) > 0
         self.value = value
         self.fitness = fitness

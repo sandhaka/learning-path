@@ -1,4 +1,11 @@
+import random
+
+import pytest
+
 from .gene import Gene
+from .operations import main, crossover, mutation
+
+""" gene tests """
 
 
 def test_gene():
@@ -30,3 +37,25 @@ def test_gene_ctor_error():
         assert False
     except AssertionError:
         assert True
+
+
+""" comprehensive test """
+
+
+@pytest.mark.skip("This test takes a long time to run")
+def test_ga_string_target():
+    target = "hello world"
+    target_value = [c for c in target]
+
+    def seed_method(x):
+        return [random.choice("abcdefghijklmnopqrstuvwxyz ") for _ in x]
+
+    generated, generation = main(
+        target_value=target_value,
+        custom_evaluate_fitness=None,
+        seed_method="custom",
+        gene_seed=seed_method,
+        max_generations=5000,
+    )
+    assert generated == Gene(target_value)
+    assert generation > 0
