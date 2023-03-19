@@ -11,7 +11,7 @@
 - [Python Time complexity](https://wiki.python.org/moin/TimeComplexity)
 ## Sources Index
 ### Sorting
-- [x] [Bubble sort](./sorting/bubble_sort.py)
+- [x] [Bubble sort](./sorting/bubble_sort.ipynb)
 - [x] [Selection sort](./sorting/selection_sort.py)
 - [x] [Merge sort](./sorting/merge_sort.py)
 - [x] [Quick sort](./sorting/quick_sort.py)
