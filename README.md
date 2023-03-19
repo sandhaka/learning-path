@@ -13,7 +13,7 @@
 ### Sorting
 - [x] [Bubble sort](./sorting/bubble_sort.ipynb)
 - [x] [Selection sort](./sorting/selection_sort.py)
-- [x] [Merge sort](./sorting/merge_sort.py)
+- [x] [Merge sort](./sorting/merge_sort.ipynb)
 - [x] [Quick sort](./sorting/quick_sort.py)
 ### Graphs
 - [x] [Simple single source shortest path algorithm](./graphs/sssp_dag.py)
