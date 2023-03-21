@@ -12,9 +12,9 @@
 ## Sources Index
 ### Sorting
 - [x] [Bubble sort](./sorting/bubble_sort.ipynb)
-- [x] [Selection sort](./sorting/selection_sort.py)
+- [x] [Selection sort](./sorting/selection_sort.ipynb)
 - [x] [Merge sort](./sorting/merge_sort.ipynb)
-- [x] [Quick sort](./sorting/quick_sort.py)
+- [x] [Quick sort](./sorting/quick_sort.ipynb)
 ### Graphs
 - [x] [Simple single source shortest path algorithm](./graphs/sssp_dag.py)
 - [x] [Dijkstra's algorithm lazy](./graphs/dijkstra_lazy.py)
