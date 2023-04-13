@@ -22,6 +22,7 @@
 - [x] [Eulerian algorithms notes](./graphs/eulerian_algorithms.py)
 - [x] [Find Eulerian path](./graphs/find_eulerian_path.py)
 - [x] [Strongly connected components Tarjan's algorithm](./graphs/tarjans_scc.py)
+- [x] [Binary Trees](./graphs/binary_tree)
 ### Dynamic programming demonstrations
 - [x] Fibonacci
   - [Memoization](./dynamic_programming/fibonacci/fib.py)
