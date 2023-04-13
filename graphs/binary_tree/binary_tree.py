@@ -16,6 +16,10 @@ class Tree:
         return data_tree
 
 
+def nodes_number(node: Tree):
+    return 0 if node is None else 1 + nodes_number(node.left) + nodes_number(node.right)
+
+
 def search(node: Tree, item):
     if node is None:
         return None

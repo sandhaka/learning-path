@@ -1,5 +1,5 @@
 import numpy as np
-from binary_tree import Tree, search, find_minimum
+from binary_tree import Tree, nodes_number, search, find_minimum
 from random import choice
 
 
@@ -9,6 +9,13 @@ def test_load():
 
     assert tree
     assert tree.item == test_data[0]
+
+
+def test_count():
+    test_data = list(np.random.randint(1024, size=32))
+    tree = Tree.load(test_data)
+
+    assert nodes_number(tree) == len(test_data)
 
 
 def test_find_minimum():
