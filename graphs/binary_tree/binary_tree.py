@@ -70,3 +70,10 @@ def delete(item, node: Tree):
         node.item = current.item
         node.right = delete(node.item, node.right)
     return node
+
+
+def traverse(node: Tree, process_item):
+    if node is not None:
+        traverse(node.left, process_item)
+        process_item(node.item)
+        traverse(node.right, process_item)

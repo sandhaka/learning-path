@@ -1,4 +1,4 @@
-from binary_tree import Tree, nodes_number, search, find_minimum, delete
+from binary_tree import Tree, nodes_number, search, find_minimum, delete, traverse, load_balanced
 from random import choice, choices, sample
 
 
@@ -63,3 +63,11 @@ def test_multi_random_delete():
         assert search(tree, n) is None
 
     assert nodes_number(tree) == 32 - len(seq)
+
+
+def test_traverse():
+    test_data = sample(range(1024), 32)
+    tree = Tree.load(test_data)
+    traverse(tree, lambda i: print(i))
+
+    assert tree
