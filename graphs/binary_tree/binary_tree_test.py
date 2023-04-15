@@ -1,4 +1,4 @@
-from binary_tree import Tree, nodes_number, search, find_minimum, delete, traverse, load_balanced
+from binary_tree import Tree, nodes_number, search, find_minimum, delete, traverse
 from random import choice, choices, sample
 
 
