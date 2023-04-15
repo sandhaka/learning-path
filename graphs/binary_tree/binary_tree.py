@@ -50,3 +50,23 @@ def insert(item, node: Tree = None):
         node.right = Tree(item, node)
     else:
         insert(item, node.right)
+
+
+def delete(item, node: Tree):
+    if item is None or node is None:
+        return None
+    if item > node.item:
+        node.right = delete(item, node.right)
+    elif item < node.item:
+        node.left = delete(item, node.left)
+    else:
+        if node.left is None:
+            return node.right
+        if node.right is None:
+            return node.left
+        current = node.right
+        while current.left is not None:
+            current = current.left
+        node.item = current.item
+        node.right = delete(node.item, node.right)
+    return node

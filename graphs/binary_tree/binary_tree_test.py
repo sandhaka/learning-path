@@ -1,10 +1,9 @@
-import numpy as np
-from binary_tree import Tree, nodes_number, search, find_minimum
-from random import choice
+from binary_tree import Tree, nodes_number, search, find_minimum, delete
+from random import choice, choices, sample
 
 
 def test_load():
-    test_data = list(np.random.randint(1024, size=32))
+    test_data = sample(range(1024), 32)
     tree = Tree.load(test_data)
 
     assert tree
@@ -12,14 +11,14 @@ def test_load():
 
 
 def test_count():
-    test_data = list(np.random.randint(1024, size=32))
+    test_data = sample(range(1024), 32)
     tree = Tree.load(test_data)
 
     assert nodes_number(tree) == len(test_data)
 
 
 def test_find_minimum():
-    test_data = list(np.random.randint(1024, size=32))
+    test_data = sample(range(1024), 32)
     tree = Tree.load(test_data)
     minimum = find_minimum(tree)
 
@@ -28,10 +27,39 @@ def test_find_minimum():
 
 
 def test_search():
-    test_data = list(np.random.randint(1024, size=32))
+    test_data = sample(range(1024), 32)
     tree = Tree.load(test_data)
     n = choice(test_data)
     node = search(tree, n)
 
     assert node
     assert node.item == n
+
+
+def test_delete():
+    test_data = [2, 1, 7, 4, 8, 3, 6, 5]
+    tree = Tree.load(test_data)
+    delete(4, tree)
+
+    assert search(tree, 4) is None
+
+
+def test_random_delete():
+    test_data = sample(range(1024), 32)
+    tree = Tree.load(test_data)
+    n = choice(test_data)
+    delete(n, tree)
+
+    assert nodes_number(tree) == 31
+    assert search(tree, n) is None
+
+
+def test_multi_random_delete():
+    test_data = sample(range(1024), 32)
+    tree = Tree.load(test_data)
+    seq = set(choices(test_data, k=5))
+    for n in seq:
+        delete(n, tree)
+        assert search(tree, n) is None
+
+    assert nodes_number(tree) == 32 - len(seq)
