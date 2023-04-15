@@ -42,11 +42,11 @@ def find_minimum(node: Tree):
 def insert(item, node: Tree = None):
     if item < node.item:
         if node.left is None:
-            node.left = Tree(item, node)
+            node.left = Tree(item)
         else:
             insert(item, node.left)
     elif node.right is None:
-        node.right = Tree(item, node)
+        node.right = Tree(item)
     else:
         insert(item, node.right)
 
