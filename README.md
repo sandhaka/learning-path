@@ -52,6 +52,8 @@
 - [x] [Knowledge base](experiments_and_research/knowledge_base_test.py)
 - [x] [Interpreter](experiments_and_research/language_design)
 - [x] [Genetic algorithms](experiments_and_research/ga)
+### Machine Learning
+- [ ] [PyTorch Notebooks](ml)
 ### Utils
 - [x] [Benchmarks](./utils/benchmarks.py)
 - [x] [Logging](./utils/logging.py)
