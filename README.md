@@ -56,7 +56,7 @@
 - [ ] [PyTorch Notebooks](ml)
 ### Utils
 - [x] [Benchmarks](./utils/benchmarks.py)
-- [x] [Logging](./utils/logging.py)
+- [x] [Logging](./utils/my_logging.py)
 - [x] DAG generator
   - [Ranks version](./utils/dag_gen.py)
   - [Layers version](./utils/dag_gen2.py)
