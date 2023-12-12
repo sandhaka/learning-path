@@ -5,14 +5,14 @@ import random
 from colorama import init, Fore
 
 parser = argparse.ArgumentParser("maze_gen")
-parser.add_argument("--size", help="The size of the map square (side length)", type=int, default=8)
+parser.add_argument("--size", help="The size of the map square (side length)", type=int, default=30)
 
 args = parser.parse_args()
 
 wall = "w"
 passage = "_"
-size = args.size
-maze_map = [[wall for _ in range(size)] for _ in range(size)]
+size = args.size * 2 + 1
+maze_map = [[wall] * size for _ in range(size)]
 maze_graph = {}
 
 for a in range(size):
@@ -22,9 +22,10 @@ for a in range(size):
 
 def get_neighbors(r, c):
     _n = []
-    for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-        if 0 <= r + dx < size and 0 <= c + dy < size:
-            _n.append((r + dx, c + dy))
+    for dx, dy in [(-2, 0), (2, 0), (0, -2), (0, 2)]:
+        x, y = r + dx, c + dy
+        if 0 <= x < size and 0 <= y < size and maze_map[x][y] != passage:
+            _n.append((x, y))
     return _n
 
 
@@ -56,30 +57,27 @@ https://en.wikipedia.org/wiki/Maze_generation_algorithm#Iterative_implementation
 
 
 def build():
-    stack = []
-    visited = []
-    starting_cell = (random.randint(0, size - 1), random.randint(0, size - 1))
-    visited.append(starting_cell)
-    stack.append(starting_cell)
-    maze_map[starting_cell[0]][starting_cell[1]] = passage
-    while len(stack) > 0:
-        i, j = stack.pop()
+    stack = [(1, 1)]
+    maze_map[1][1] = passage
+
+    while stack:
+        i, j = stack[-1]
+        maze_map[i][j] = passage
+
         neighbors = get_neighbors(i, j)
-        neighbors = list(filter(lambda n: n not in visited, neighbors))
-        if len(neighbors) > 0:
-            stack.append(starting_cell)
+
+        if neighbors:
             neighbor = random.choice(neighbors)
-            # Create the passage
-            maze_map[neighbor[0]][neighbor[1]] = passage
-            visited.append(neighbor)
+
+            maze_map[(i + neighbor[0]) // 2][(j + neighbor[1]) // 2] = passage
+
             stack.append(neighbor)
+        else:
+            stack.pop()
 
 
 # Initialize colorama
+
 init()
-
 build()
-
 print_maze(maze_map)
-
-print(maze_graph)
