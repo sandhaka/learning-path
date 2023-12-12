@@ -44,15 +44,6 @@ def print_maze(maze):
 """
 Iterative implementation (with stack)
 https://en.wikipedia.org/wiki/Maze_generation_algorithm#Iterative_implementation_(with_stack)
----
-.1 Select a random cell, mark it as visited and push it into the stack
-.2 While the stack is not empty:
-    .A Pop a cell from the stack and make it the current cell
-    .B If the current cell has any unvisited neighbour cells:
-        .a Push it into the stack
-        .b Select a random neighbors not yet visited
-        .c Remove the wall between the current cell and the chosen cell
-        .d Mark the chosen cell as visited and push it to the stack
 """
 
 
@@ -75,8 +66,6 @@ def build():
         else:
             stack.pop()
 
-
-# Initialize colorama
 
 init()
 build()
