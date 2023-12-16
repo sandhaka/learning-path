@@ -1,52 +1,94 @@
 import argparse
-import utils.maze as maze_generator
+import utils.maze as mz
 import matplotlib.pyplot as plt
 
 from heapq import heappush, heappop
-from colorama import init, Fore
 
 parser = argparse.ArgumentParser("a-star", description="A* search algorithm collection")
-parser.add_argument("--maze", help="The size of the map square (side length)", type=int, default=35)
+parser.add_argument("--maze", help="The size of the map square (side length)", type=int, default=40)
+parser.add_argument("--plot", help="Plot the search progress", action="store_true", default=True)
 
 args = parser.parse_args()
 
-mz = maze_generator.MazeBlocks
 size = args.maze
+plot = args.plot
 
 
-def print_maze_on_console(m: list[list[int]]) -> None:
-    for i in range(0, len(m)):
-        for j in range(0, len(m[0])):
-            if m[i][j] == mz.PASSAGE:
-                print(Fore.GREEN, f"{m[i][j]}", end="    ")
-            else:
-                print(Fore.RED, f"{m[i][j]}", end="    ")
-        print("\n")
+def plot_init() -> None:
+    plt.figure(figsize=(12, 12))
+    plt.ion()
+    plt.title("Maze solver")
 
 
-def a_star_search(g: dict) -> list:
-    pass
+def plot_progress(p: list[tuple[int, int]], visited: list[tuple[int, int]], final_path=False) -> None:
+    p = list(map(lambda x: (x[1], x[0]), p))
+    visited = list(map(lambda x: (x[1], x[0]), visited))
+    plt.clf()
+    plt.imshow(maze, cmap="binary", interpolation="none", origin="upper")
+    plt.plot(*zip(*p), marker="o", color="blue" if final_path else "red")
+    plt.scatter(*zip(*visited), marker="o", color="green")
+    plt.pause(0.1)
 
 
-# def plot_graph_verification(m, g) -> None:
-#     plt.figure(figsize=(8, 8))
-#     plt.ion()  # Turn on interactive mode
-#     for node in g.keys():
-#         plt.clf()  # Clear the previous plot
-#         plt.imshow(m, cmap="binary", interpolation="none", origin="upper")
-#         passage = [node] + g[node]
-#         for point in passage:
-#             plt.scatter(point[1], point[0], marker="o", color="red")
-#         plt.title(f"Node {node}: {g[node]}")
-#         plt.pause(5)
-#     plt.ioff()  # Turn off interactive mode
-#     plt.show()
+def plot_end() -> None:
+    plt.ioff()  # Turn off interactive mode
+    plt.show()
 
 
-# Init colorama
-init()
+def astar(g: dict, start_node: tuple[int, int], goal_node: tuple[int, int]) -> list | None:
+    plot_init()
+
+    # For a maze-solving scenario, a good heuristic should be:
+    # - Admissible (never overestimates the true cost)
+    # - Consistent (satisfies the triangle inequality)
+    # A commonly used heuristic for maze-solving is the Manhattan distance
+    def heuristic(node: tuple[int, int], goal: tuple[int, int]):
+        return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
+
+    def rebuild_path(n):
+        p = [n]
+        while n in came_from:
+            n = came_from[n]
+            p.append(n)
+        return p
+
+    open_set = [(0, start_node)]
+    came_from = {}
+    cost_so_far = {start_node: 0}
+
+    while len(open_set) > 0:
+        curr_cost, curr_node = heappop(open_set)
+        if curr_node == goal_node:
+            goal_path = rebuild_path(goal_node)
+            plot_progress([goal_node] + goal_path, cost_so_far.keys(), True)
+            return goal_path
+
+        for neighbor in g[curr_node]:
+            new_cost = cost_so_far.get(curr_node) + 1
+            if neighbor not in cost_so_far or new_cost < cost_so_far[neighbor]:
+                cost_so_far[neighbor] = new_cost
+                priority = new_cost + heuristic(neighbor, goal_node)
+                heappush(open_set, (priority, neighbor))
+                came_from[neighbor] = curr_node
+                plot_progress(rebuild_path(neighbor), cost_so_far.keys())
+
+    return None
+
+
 # Get a maze sample
-maze = maze_generator.gen(size)
-adjacency_list = maze_generator.maze2graph(maze)
+maze = mz.gen(size)
 
-print_maze_on_console(maze)
+# Convert maze to a graph
+adjacency_list = mz.maze2graph(maze)
+
+# Start at the most top left corner of the maze and end at the most bottom right cell
+start = (1, 1)
+end = (size * 2 - 1, size * 2 - 1)
+
+path = astar(adjacency_list, start, end)
+
+path.reverse()
+print(path + [end])
+
+input("Press any key to exit")
+plot_end()
