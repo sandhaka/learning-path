@@ -25,6 +25,8 @@ def plot_progress(p: list[tuple[int, int]], visited: list[tuple[int, int]], fina
     visited = list(map(lambda x: (x[1], x[0]), visited))
     plt.clf()
     plt.imshow(maze, cmap="binary", interpolation="none", origin="upper")
+    plt.xticks([]), plt.yticks([])
+    plt.tick_params(axis="both", which="both", length=0)
     plt.plot(*zip(*p), marker="o", color="blue" if final_path else "red")
     plt.scatter(*zip(*visited), marker="o", color="green")
     plt.pause(0.1)
