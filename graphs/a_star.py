@@ -6,12 +6,10 @@ from heapq import heappush, heappop
 
 parser = argparse.ArgumentParser("a-star", description="A* search algorithm collection")
 parser.add_argument("--maze", help="The size of the map square (side length)", type=int, default=20)
-parser.add_argument("--plot", help="Plot the search progress", action="store_true", default=True)
 
 args = parser.parse_args()
 
 size = args.maze
-plot = args.plot
 
 
 def plot_init() -> None:
