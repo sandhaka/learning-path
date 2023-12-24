@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from heapq import heappush, heappop
 
 parser = argparse.ArgumentParser("a-star", description="A* search algorithm collection")
-parser.add_argument("--maze", help="The size of the map square (side length)", type=int, default=40)
+parser.add_argument("--maze", help="The size of the map square (side length)", type=int, default=20)
 parser.add_argument("--plot", help="Plot the search progress", action="store_true", default=True)
 
 args = parser.parse_args()
@@ -40,9 +40,6 @@ def plot_end() -> None:
 def astar(g: dict, start_node: tuple[int, int], goal_node: tuple[int, int]) -> list | None:
     plot_init()
 
-    # For a maze-solving scenario, a good heuristic should be:
-    # - Admissible (never overestimates the true cost)
-    # - Consistent (satisfies the triangle inequality)
     # A commonly used heuristic for maze-solving is the Manhattan distance
     def heuristic(node: tuple[int, int], goal: tuple[int, int]):
         return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
