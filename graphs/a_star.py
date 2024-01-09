@@ -38,6 +38,10 @@ def plot_end() -> None:
 def astar(g: dict, start_node: tuple[int, int], goal_node: tuple[int, int]) -> list | None:
     plot_init()
 
+    open_set = [(0, start_node)]
+    came_from = {}
+    cost_so_far = {start_node: 0}
+
     # A commonly used heuristic for maze-solving is the Manhattan distance
     def heuristic(node: tuple[int, int], goal: tuple[int, int]):
         return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
@@ -48,10 +52,6 @@ def astar(g: dict, start_node: tuple[int, int], goal_node: tuple[int, int]) -> l
             n = came_from[n]
             p.append(n)
         return p
-
-    open_set = [(0, start_node)]
-    came_from = {}
-    cost_so_far = {start_node: 0}
 
     while len(open_set) > 0:
         curr_cost, curr_node = heappop(open_set)
